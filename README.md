@@ -78,6 +78,10 @@ The system uses a custom gating algorithm to reconcile inputs:
 
 ---
 
+## ⚠️ System Limitations
+- **Acoustic Dataset Scope**: The current audio classifier is trained on a specific subset of animal vocalizations. While effective for the target species, expanding the dataset to include more diverse vocal signatures and environmental noise profiles would further improve generalization in varying geographic regions.
+- **Hardware Constraints**: Real-time performance on extremely low-resource hardware may requires further model pruning or more aggressive quantization of the vision pipeline.
+
 ## 📈 Future Enhancements
 - **LoRaWAN Integration**: For long-range alert transmission in remote agricultural areas.
 - **Solar Power Management**: Implementing ultra-low-power modes for energy harvesting.
