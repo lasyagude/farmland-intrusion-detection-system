@@ -1,49 +1,51 @@
 # 🌾 Farmland Intrusion Detection System (FIDS)
-### Multi-Modal Sensor Fusion for Edge AI
+### Multi-Modal Sensor Fusion for Real-Time Animal Detection
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)
-![YOLOv8](https://img.shields.io/badge/YOLOv8-Detection-green.svg)
-![EdgeAI](https://img.shields.io/badge/Edge%20AI-Optimized-red.svg)
+![TensorFlow](https://img.smanship.org/badge/TensorFlow-2.16-orange.svg)
+![YOLOv8](https://img.shields.io/badge/YOLOv8-ONNX-green.svg)
+![EdgeAI](https://img.shields.io/badge/Edge%20AI-Quantized-red.svg)
 
 ## 📌 Project Overview
-FIDS is an intelligent monitoring system designed to protect farmlands from wild animal intrusions. It leverages **Audio-Visual Sensor Fusion** to detect and classify intruders (Cows, Elephants, Goats, and Wild Boars) in real-time. 
+The Farmland Intrusion Detection System (FIDS) is an intelligent monitoring solution designed to protect agricultural zones from animal-related damage. It employs a **decision-level fusion** architecture, combining computer vision (YOLOv8) and acoustic fingerprinting (YAMNet + TFLite) to identify intruders like elephants, wild boars, and livestock with high reliability.
 
-By combining computer vision with acoustic intelligence, the system maintains high accuracy even in challenging conditions where one sensor might fail (e.g., low light or visual obstructions).
+By merging visual and acoustic signals, the system maintains high accuracy even in challenging conditions such as low light or visual occlusion.
 
 ---
 
 ## 🚀 Key Features
-- **Multi-Modal Fusion**: Integrates **YOLOv8** (Visual) and **YAMNet** (Acoustic) for robust threat detection.
-- **Dynamic Day/Night Switching**: Automatically shifts reliance between Camera and Microphone based on ambient light levels (Auto-NIGHT mode).
-- **Edge Optimized**: Uses quantized **INT8 TFLite** models and **ONNX** runtimes for high-speed inference on low-power devices.
-- **Intelligent Gating Logic**: A custom fusion algorithm that handles sensor confidence scores to minimize false positives.
+- **Multi-Modal Sensor Fusion**: Integrates **YOLOv8** (Visual) and **YAMNet** (Acoustic) for robust threat detection and reduced false alarms.
+- **Adaptive Day/Night Logic**: Automatically adjusts detection sensitivity and sensor weighting based on real-time ambient light analysis.
+- **Edge-Optimized Inference**: Utilizes quantized **INT8 TFLite** models and **ONNX** runtimes for high-speed performance on low-power edge hardware.
+- **Intelligent Gating Logic**: A custom fusion algorithm that reconciles sensor confidence scores to maximize detection accuracy.
 
 ---
 
 ## 🛠️ Technical Architecture
 
 ### 1. Vision System (YOLOv8)
-- **Model**: Custom-trained YOLOv8 exported to ONNX.
-- **Target Classes**: Cow, Elephant.
-- **Optimization**: Runs on a skipped-frame logic (every 3rd frame) to conserve CPU/GPU resources.
+- **Model**: Custom-trained YOLOv8 exported to **ONNX**.
+- **Role**: Provides spatial detection and high-confidence identification of large intruders (Cows, Elephants) during daylight.
+- **Optimization**: Implements frame-skip logic to conserve computational resources on edge devices.
 
 ### 2. Acoustic System (YAMNet + TFLite)
 - **Feature Extraction**: Uses Google's **YAMNet** to generate high-dimensional audio embeddings.
-- **Classifier**: A custom-trained dense neural network quantized to **INT8** for ultra-fast audio classification.
+- **Classifier**: A custom-trained neural network quantized to **INT8** for ultra-fast audio classification.
 - **Target Classes**: Cow, Goat, Elephant, Wild Boar.
 
-### 3. Fusion Logic (The "Brain")
-- **Day Mode**: Priority is given to visual confirmation or high-confidence agreement between both sensors.
-- **Night Mode**: Relying primarily on the Acoustic sensor when visual visibility drops below a set brightness threshold.
+### 3. Fusion Decision Matrix (The "Brain")
+The system uses a custom gating algorithm to reconcile inputs:
+- **Agreement Mode**: Triggered when both sensors confirm a class with >0.60 confidence.
+- **Visual Dominance (Day)**: High-confidence YOLO detections override inconclusive audio signals.
+- **Acoustic Dominance (Night)**: When brightness falls below a set threshold, the system automatically shifts priority to acoustic signatures.
 
 ---
 
-## 📂 Project Structure
+## 📂 Repository Structure
 ```text
 ├── integrated.py      # Main Live Fusion System (Camera + Mic)
 ├── acu.py             # Performance Evaluation & Accuracy Metrics
-├── debug.py           # Dataset Integrity & Path Verification
+├── debug.py           # Dataset Integrity & Path Verification Utility
 ├── audio/             # TFLite Audio Classifier Models
 ├── visual/            # YOLOv8 ONNX Models
 └── test_samples/      # Structured Test Dataset (Audio & Images)
@@ -55,8 +57,8 @@ By combining computer vision with acoustic intelligence, the system maintains hi
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/farmland-intrusion.git
-   cd farmland-intrusion
+   git clone https://github.com/lasyagude/farmland-intrusion-detection-system.git
+   cd farmland-intrusion-detection-system
    ```
 
 2. **Install dependencies:**
@@ -75,13 +77,13 @@ By combining computer vision with acoustic intelligence, the system maintains hi
    ```
 
 ---
-This project demonstrates proficiency in:
-- **Computer Vision**: Object detection and ONNX optimization.
-- **Digital Signal Processing**: Audio feature extraction and embedding analysis.
-- **Sensor Fusion**: Implementing decision-level fusion algorithms.
-- **Software Engineering**: Writing clean, modular, and cross-platform compatible Python code.
+
+## 📈 Future Enhancements
+- **LoRaWAN Integration**: For long-range alert transmission in remote agricultural areas.
+- **Solar Power Management**: Implementing ultra-low-power modes for energy harvesting.
+- **Thermal Imaging Support**: Enhancing Night Mode with FLIR sensor integration.
 
 ---
 
 ## 📄 License
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License.
