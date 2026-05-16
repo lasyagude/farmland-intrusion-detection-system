@@ -75,8 +75,6 @@ By combining computer vision with acoustic intelligence, the system maintains hi
    ```
 
 ---
-
-## 👨‍💻 For Recruiters
 This project demonstrates proficiency in:
 - **Computer Vision**: Object detection and ONNX optimization.
 - **Digital Signal Processing**: Audio feature extraction and embedding analysis.
